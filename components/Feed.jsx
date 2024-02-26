@@ -4,7 +4,7 @@ import PromptCard from "./PromptCard";
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
-    <div className="mt-16 prompt_layout">
+    <div className="prompt_layout">
       {data?.map((post) => (
         <PromptCard
           key={post._id}
@@ -18,14 +18,25 @@ const PromptCardList = ({ data, handleTagClick }) => {
 const Feed = () => {
   const [searchText, setSearchText] = useState("");
   const [posts, setPosts] = useState([]);
-  const handleSearchChange = (e) => {};
-
+  const [updatedPost, setUpdatedPost] = useState([]);
+  const handleSearchChange = (e) => {
+    setSearchText(e.target.value);
+    const filteredPosts = posts.filter((post) => {
+      return (
+        post.prompt.includes(e.target.value) ||
+        post.creator.username.includes(e.target.value) ||
+        post.tag.includes(e.target.value)
+      );
+    });
+    setUpdatedPost(filteredPosts);
+  };
+  console.log(posts);
   useEffect(() => {
     const fetchPost = async () => {
       const res = await fetch("/api/prompt");
       const data = await res.json();
       setPosts(data);
-      // console.log(data);
+      setUpdatedPost(data);
     };
     fetchPost();
   }, []);
@@ -41,7 +52,7 @@ const Feed = () => {
           className="search_input peer"
         />
       </form>
-      <PromptCardList data={posts} handleTagClick={() => {}} />
+      <PromptCardList data={updatedPost} handleTagClick={() => {}} />
     </section>
   );
 };

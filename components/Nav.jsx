@@ -21,12 +21,14 @@ const Nav = () => {
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 flex-center">
         <Image
-          src="/assets/images/logo.svg"
+          src="https://static-00.iconduck.com/assets.00/next-js-icon-2048x2048-5dqjgeku.png"
           alt="promtopia logo"
           width={30}
           height={30}
         />
-        <p className="logo_text">Promtopia</p>
+        <p className="logo_text">
+          Mesh By <span className="blue_gradient">Sahil</span>
+        </p>
       </Link>
       {/* desktop navigation */}
       <div className="sm:flex hidden">
